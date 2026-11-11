@@ -1,0 +1,64 @@
+# Default configuration for Cellular Device Performance Lab
+# All thresholds and parameters are illustrative unless marked otherwise.
+
+random_seed: 42
+
+default_device:
+  device_id: "SIM-UE-001"
+  model: "Synthetic Smartphone"
+
+technologies:
+  lte:
+    bands: [1, 3, 7, 20, 41]
+    bandwidths_mhz: [5, 10, 15, 20]
+    mimo_layers: [1, 2, 4]
+  nr_sa:
+    bands: [n41, n71, n77, n78]
+    bandwidths_mhz: [20, 40, 50, 100]
+    mimo_layers: [2, 4]
+  nr_nsa:
+    bands: [n41, n77]
+    bandwidths_mhz: [20, 40, 100]
+    mimo_layers: [2, 4]
+
+scenarios:
+  baseline_lte:
+    technology: lte
+    rat: LTE
+    description: "Good RF conditions, stationary, single carrier"
+    rsrp_mean_dbm: -75
+    sinr_mean_db: 18
+    mobility_speed_kmh: 0
+    interference_level: low
+    duration_seconds: 60
+    sampling_interval_ms: 100
+  degraded_sinr:
+    technology: lte
+    rat: LTE
+    description: "Strong RSRP but poor SINR (interference or noise)"
+    rsrp_mean_dbm: -78
+    sinr_mean_db: 4
+    mobility_speed_kmh: 0
+    interference_level: high
+    duration_seconds: 60
+    sampling_interval_ms: 100
+  high_mobility:
+    technology: nr_sa
+    rat: "5G NR SA"
+    description: "High-speed mobility with handover events"
+    rsrp_mean_dbm: -85
+    sinr_mean_db: 12
+    mobility_speed_kmh: 120
+    interference_level: medium
+    duration_seconds: 120
+    sampling_interval_ms: 100
+  ul_degradation:
+    technology: lte
+    rat: LTE
+    description: "Good DL but poor UL (power headroom or interference)"
+    rsrp_mean_dbm: -80
+    sinr_mean_db: 15
+    mobility_speed_kmh: 3
+    interference_level: medium
+    duration_seconds: 60
+    sampling_interval_ms: 100
